@@ -1,4 +1,4 @@
-gene_set_exttada <- function(geneset, cases, samplenumber, reference, cal_pval = FALSE, outputpath=NA) {
+gene_set_DMGEAA <- function(geneset, cases, samplenumber, reference, cal_pval = FALSE, outputpath=NA) {
   # form a proper input for TADA
   mytada.data = data.frame(gene.id=geneset,
                            mut.cls1=numeric(length(geneset)),
@@ -60,10 +60,10 @@ gene_set_exttada <- function(geneset, cases, samplenumber, reference, cal_pval =
                 cls3 = mytada.data$mut.cls3)
   denovo.only=data.frame(cls1=TRUE,cls2=TRUE,cls3=TRUE)
   # do burden analysis to get the estimated prior
-  burden_analysis = geneset_burden_analysis(geneset, cases, samplenumber, reference)
-  burden1 = burden_analysis$enrichment[1]
-  burden2 = burden_analysis$enrichment[4]
-  burden3 = burden_analysis$enrichment[5]
+  # burden_analysis = geneset_burden_analysis(geneset, cases, samplenumber, reference)
+  # burden1 = burden_analysis$enrichment[1]
+  # burden2 = burden_analysis$enrichment[4]
+  # burden3 = burden_analysis$enrichment[5]
   
   # use extTADA to sample values of parameters
   dataDN = mytada.data[,c('dn.cls1','dn.cls2')]
@@ -75,12 +75,12 @@ gene_set_exttada <- function(geneset, cases, samplenumber, reference, cal_pval =
   mouse_dev = mouse_dev[!is.na(mouse_dev$e14.5_rank),]
   rankPercentile = mouse_dev$e14.5_rank[match(geneset, mouse_dev$human.External.Gene.Name)]
   options(mc.cores = parallel::detectCores())
-  mcmcDD <- extTADAmcmc(modelName = DNextTADA,
+  mcmcDD <- DMGEAAmcmc(modelName = DNextTADA,
                         dataDN = dataDN,
                         mutRate = mutRate,
                         rankPercentile = rankPercentile,
                         Ndn = rep(samplenumber, 2),
-                        nIteration = 500)
+                        nIteration = 1000)
 
   options(repr.plot.width = 4, repr.plot.height = 3)
   par(mfrow = c(1,2))

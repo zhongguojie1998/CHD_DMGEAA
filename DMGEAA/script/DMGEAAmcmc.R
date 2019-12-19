@@ -1,4 +1,4 @@
-extTADAmcmc <- function(modelName  ,
+DMGEAAmcmc <- function(modelName  ,
                          dataDN = NULL, mutRate = NULL, rankPercentile = NULL, Ndn = NULL,
                          dataCCcase = NULL, dataCCcontrol = NULL, Ncase = NULL, Ncontrol = NULL,
                     nIteration = NULL, nIteration2 = NULL,
