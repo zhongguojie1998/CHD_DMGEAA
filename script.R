@@ -1,5 +1,6 @@
 library(denovolyzeR)
 library(readxl)
+# read trio and mutation data
 mydata = read_excel("PCGC_DNVs_Freeze201907.xlsx", sheet = "DNVs", na = ".")
 trois = read_excel("PCGC_DNVs_Freeze201907.xlsx", sheet = "Trios", na = ".")
 samplenumber = length(unique(trois$IID))
@@ -37,6 +38,7 @@ cases = data.frame(genes = mydata$Symbol[topick], classes = standard_var[topick]
 
 # only use genes in the reference dataset
 geneset = unique(reference$gene_name)
+# gene expression data in developmental process
 alldev = read.table('Developmental Data/mouse_br_rnaseq3.rda.txt', header = TRUE, fill = TRUE)
 alldev = alldev[!is.na(alldev$e14.5_rank)&!is.na(alldev$human.External.Gene.Name),]
 alldev_geneset = alldev$human.External.Gene.Name
