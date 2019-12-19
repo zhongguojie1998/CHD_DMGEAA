@@ -1,4 +1,3 @@
-source("geneset_burden_analysis.R")
 library(denovolyzeR)
 library(readxl)
 mydata = read_excel("PCGC_DNVs_Freeze201907.xlsx", sheet = "DNVs", na = ".")
@@ -49,6 +48,8 @@ for (ii in DMGEAA) {
 # only use genes in the developmental gene dataset
 alldev_geneset = geneset
 # alldev_geneset_exttada includes the mcmc samples, FDR of genes, and the estimated pars
+# for pi, pi0[1],pi0[2],pi0[3],pi0[4] correspond to \pi_1, \pi_2, \pi_3 and \pi_0 in the paper
+# for percentileA, percentileB, percentileC correspond to A, B, C in the paper, and [1] is LGD, [2] is Dmis
 alldev_geneset_exttada = gene_set_exttada(alldev_geneset, cases, samplenumber, reference)
 rank_percentile = alldev$e14.5_rank[match(alldev_geneset, alldev$human.External.Gene.Name)]
 # compare with simulation
